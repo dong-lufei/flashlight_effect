@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手电筒效果</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #222;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 150px);
+      gap: 10px;
+    }
+
+    .container .card {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      background-color: rgba(45, 45, 45, 1);
+      overflow: hidden;
+    }
+
+    .container .card::before {
+      content: '';
+      position: absolute;
+      top: var(--y);
+      left: var(--x);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(var(--clr), transparent, transparent);
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+      transition: .5s, top 0, left 0;
+    }
+
+    .container .card:hover:before {
+      opacity: 1;
+    }
+
+    .container .card::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      background-color: rgba(45, 45, 45, .9);
+
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card" style="--clr:#0f0;"></div>
+    <div class="card" style="--clr:#ff0;"></div>
+    <div class="card" style="--clr:#f00;"></div>
+    <div class="card" style="--clr:#f0f;"></div>
+    <div class="card" style="--clr:#0ff;"></div>
+    <div class="card" style="--clr:#0f0;"></div>
+    <div class="card" style="--clr:#ff0;"></div>
+    <div class="card" style="--clr:#f00;"></div>
+    <div class="card" style="--clr:#f0f;"></div>
+    <div class="card" style="--clr:#0ff;"></div>
+    <div class="card" style="--clr:#0f0;"></div>
+    <div class="card" style="--clr:#ff0;"></div>
+    <div class="card" style="--clr:#f00;"></div>
+    <div class="card" style="--clr:#f0f;"></div>
+    <div class="card" style="--clr:#0ff;"></div>
+    <div class="card" style="--clr:#0f0;"></div>
+  </div>
+  <script>
+
+    const parent = document.querySelector('.container');
+
+    // 为容器添加鼠标移动事件监听器
+    parent.addEventListener('mousemove', handleMouseMove);
+
+    // 定义鼠标移动事件处理函数
+    function handleMouseMove (e) {
+      // 如果鼠标移动到的元素不是卡片，则返回
+      if (!e.target.matches('.card')) return;
+      // 获取鼠标移动到的卡片
+      const card = e.target;
+      // 获取卡片的位置信息
+      const rect = card.getBoundingClientRect();
+      // 计算鼠标在卡片上的 x 坐标
+      const x = e.clientX - rect.left;
+      // 计算鼠标在卡片上的 y 坐标
+      const y = e.clientY - rect.top;
+
+      // 为卡片设置 x 和 y 属性
+      card.style.setProperty('--x', `${x}px`);
+      card.style.setProperty('--y', `${y}px`);
+    }
+  </script>
+</body>
+
+</html>
